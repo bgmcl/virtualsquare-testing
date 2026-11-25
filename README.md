@@ -35,13 +35,38 @@ virtualsquare-testing/
 
 La directory `strumenti` contiene le funzioni di supporto riutilizzabili. La directory `tests` contiene i test automatici e le fixture di pytest.
 
-## Ambiente utilizzato
+## Ambiente di sviluppo verificato
 
-- Sistema operativo: Debian
+Il progetto è stato sviluppato e verificato con la seguente configurazione:
+
+- Sistema operativo: Debian 13 (Trixie), amd64
 - Python: 3.13.5
 - pytest: 9.2.0
-- Libreria pexpect
-- UMVU e modulo VUFS di VirtualSquare
+- pexpect: 4.9.0
+- VUOS: 0.9.2-1
+
+Pacchetti Debian utilizzati:
+- `vuos`
+- `vuos-umvu`
+- `vuos-cmds`
+- `vuos-modules`
+
+## Installazione dei prerequisiti
+
+Su Debian 13, installare Python e VirtualSquare:
+
+```bash
+sudo apt update
+sudo apt install python3 python3-venv python3-pip vuos
+```
+
+Verificare che i comandi di VirtualSquare siano disponibili:
+
+```bash
+command -v umvu
+command -v vu_insmod
+command -v vumount
+```
 
 ## Installazione delle dipendenze Python
 
@@ -53,11 +78,15 @@ source .venv/bin/activate
 python -m pip install -r requirements.txt
 ```
 
-I componenti VirtualSquare devono essere già installati e disponibili nell'ambiente di esecuzione. Le relative istruzioni di installazione saranno documentate nelle versioni successive.
-
 ## Esecuzione dei test
 
-Per avviare tutti i test della suite:
+Per eseguire tutti i test:
+
+```bash
+./run_tests.sh
+```
+
+In alternativa:
 
 ```bash
 python -m pytest tests/ -v
@@ -71,7 +100,7 @@ python -m pytest tests/test_vufs_base.py -v
 
 ## Risultati della verifica iniziale
 
-Ambiente: Debian, Python 3.13.5, pytest 9.2.0.
+I test sono stati eseguiti su Debian 13 con Python 3.13.5, pytest 9.2.0 e VUOS 0.9.2-1.
 
 ```text
 test_vufs_file_visibile     PASSED
@@ -81,10 +110,10 @@ test_vufs_contenuto_uguale  PASSED
 3 passed in 1.08s
 ```
 
-Il risultato documenta l'esecuzione locale della suite e non garantisce ancora la riproducibilità su ambienti differenti.
+I risultati si riferiscono all'ambiente di sviluppo verificato. L'esecuzione su altri sistemi richiede la disponibilità dei componenti VirtualSquare e delle dipendenze indicate.
 
 ## Sviluppi previsti
 
-Il progetto sarà ampliato progressivamente per verificare ulteriori funzionalità VUFS e altri componenti VirtualSquare, seguendo i rispettivi tutorial.
+Il progetto sarà ampliato progressivamente per verificare ulteriori funzionalità VUFS e altri componenti VirtualSquare, seguendo i tutorial ufficiali.
 
-Le modifiche saranno registrate attraverso Git, consentendo di confrontare le successive versioni del progetto e individuare con precisione il codice aggiunto o modificato.
+Le modifiche saranno registrate attraverso Git, consentendo di confrontare le versioni successive del progetto.
