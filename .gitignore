@@ -1,0 +1,25 @@
+# Ambiente virtuale Python
+.venv/
+venv/
+
+# Cache Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Cache pytest
+.pytest_cache/
+
+# Rapporti di copertura
+.coverage
+htmlcov/
+
+# File temporanei
+*.log
+*.tmp
+
+# Configurazioni locali
+.env
+
+# Esercizi didattici non destinati alla consegna
+esempi/
