@@ -10,13 +10,17 @@ Tecnologie: Python, pytest, pexpect, VUOS.
 
 | Componente | Test | Esito |
 |---|---:|---|
-| VUFS | 17 | PASS |
-| UNREAL | 1 | PASS |
-| **Totale** | **18** | **18 PASS** |
+| VUFS | 17 | 17 PASS |
+| UNREAL | 1 | PASS con purelibc 1.0.10 |
+| FUSE EXT2 | 3 | 3 PASS |
+| FUSE FAT | 3 | 3 PASS |
+| **Totale** | **24** | **24 PASS con purelibc 1.0.10** |
 
 VUFS: test delle modalità `bind`, `merge`, `cow`, `mincow`, delle eccezioni, dei metadati e delle modifiche virtuali.
 
 UNREAL: verifica dei livelli di virtualizzazione annidata.
+
+FUSE EXT2 e FAT: test di montaggio, accesso e operazioni sui file, comprese le verifiche di accesso in sola lettura tramite VUFUSE.
 
 Il dettaglio è riportato in `docs/matrice_test.md`.
 
@@ -46,16 +50,28 @@ pip install -r requirements.txt
 
 ## Esecuzione
 
+Per eseguire tutti i test:
+
+```bash
+./run_tests.sh
+```
+
+In alternativa:
+
 ```bash
 python -m pytest -v tests/
 ```
 
-Per eseguire anche UNREAL con la libreria corretta:
+Per eseguire la suite con `purelibc 1.0.10`, specificare la directory che contiene la libreria aggiornata:
 
 ```bash
-LD_LIBRARY_PATH="$HOME/prova-purelibc/estratta/usr/lib/x86_64-linux-gnu" \
+LD_LIBRARY_PATH="/percorso/alla/directory/purelibc" \
 python -m pytest -v tests/
 ```
+
+Nell'ambiente Debian standard sono stati verificati **23 PASS e 1 FAIL**, relativo al secondo livello di virtualizzazione UNREAL.
+
+Il test UNREAL è stato verificato positivamente utilizzando `purelibc 1.0.10`.
 
 **Risultato verificato: 18 passed.**
 
@@ -69,4 +85,8 @@ Con purelibc 1.0.10, estratta localmente e utilizzata tramite `LD_LIBRARY_PATH`,
 
 ## Sviluppi previsti
 
-Estensione della suite ai filesystem FUSE (EXT2, FAT), alla rete virtuale VDE e agli altri tutorial VirtualSquare.
+La suite comprende attualmente i test VUFS, UNREAL e FUSE (EXT2 e FAT).
+
+I prossimi sviluppi riguarderanno i tutorial della rete virtuale VDE e le ulteriori funzionalità VirtualSquare non ancora coperte.
+
+Gli aggiornamenti saranno documentati attraverso commit Git e mediante diff o patch rispetto alla versione precedentemente sottoposta al docente.
